@@ -1,2 +1,2 @@
 cd path_of_folder
-python app.py run
+python flask_app.py run
