@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>filter</title>
+    <script src="https://kit.fontawesome.com/cd7cde004b.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-top: 50px;
+            font-size: 40px;
+        }
+        
+        form {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        input[type="file"] {
+            display: block;
+            margin: 0 auto;
+            margin-bottom: 20px;
+        }
+        
+        button {
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            height: 40px;
+            width: 140px;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            font-size: larger;
+            font-weight: 700;
+        }
+        
+        button:hover {
+            background-color: #555;
+        }
+        
+        nav {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+            font-size: larger;
+            font-weight: 700;
+        }
+        
+        .navbar-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            height: 50px;
+        }
+        
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            margin-right: 20px;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+        
+        .dark-mode-toggle {
+            cursor: pointer;
+        }
+        
+        .dark-mode-toggle .icon {
+            width: 10px;
+            height: 10px;
+        }
+        
+        .dark-mode {
+            background-color: #222;
+            color: #fff;
+        }
+        
+        .dark-mode .nav-links a {
+            color: #fff;
+        }
+        
+        .light-mode {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+        
+        .light-mode .nav-links a {
+            color: #333;
+        }
+        
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+            margin-top: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div class="navbar-container">
+            <div><img class="logo" src="/static/pandait-logo.jpeg" alt="Logo"></div>
+
+            <div class="nav-links">
+                <a href="{{ url_for('index') }}">Home</a>
+                <a href="{{ url_for('about_us') }}">About Us</a>
+            </div>
+            <div class="dark-mode-toggle" onclick="toggleDarkMode()" id="dark-mode-switch">
+                <i id="dark-mode-icon" class="fa-solid fa-moon fa-xl"></i>
+            </div>
+        </div>
+    </nav>
+    <h1>Upload a CSV file</h1>
+    <form action="/upload2" method="post" enctype="multipart/form-data">
+        <input type="file" name="file">
+        <button type="submit">Upload</button>
+    </form>
+    {{ans}}
+
+    <footer>
+        <p>&copy; 2024 our Website. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function toggleDarkMode() {
+            const body = document.body;
+            const darkModeIcon = document.getElementById('dark-mode-icon');
+
+            body.classList.toggle('dark-mode');
+            if (body.classList.contains('dark-mode')) {
+                darkModeIcon.classList.remove('fa-moon');
+                darkModeIcon.classList.add('fa-sun');
+            } else {
+                darkModeIcon.classList.remove('fa-sun');
+                darkModeIcon.classList.add('fa-moon');
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <script src="https://kit.fontawesome.com/cd7cde004b.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.5s, color 0.5s;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            color: #333;
+            transition: background-color 0.5s, color 0.5s;
+        }
+        .slider {
+            width: 100%;
+            height: 300px;
+            overflow: hidden;
+            position: relative;
+            object-fit: cover;
+        }
+        .slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            width: 200%;
+            object-fit: cover;
+        }
+        .slide {
+            min-width: 50%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .content {
+            text-align: center;
+            margin-top: 40px;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            transition: background-color 0.5s;
+        }
+        h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        nav {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+        }
+        .navbar-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 40px;
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        .dark-mode-toggle {
+            cursor: pointer;
+        }
+        .dark-mode-toggle i {
+            color: white;
+        }
+        .dark-mode {
+            background-color: #222;
+            color: #eee;
+        }
+        .dark-mode .nav-links a {
+            color: white;
+        }
+        .dark-mode footer {
+            background-color: #111;
+        }
+        .dark-mode .container {
+            background-color: #333;
+            color: #eee;
+        }
+        .dark-mode .content {
+            background-color: #444;
+        }
+
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="navbar-container">
+            <div><img class="logo" src="/static/pandait-logo.jpeg" alt="Logo"></div>
+
+            <div class="nav-links">
+                <a href="{{ url_for('index') }}">Home</a>
+                <a href="{{ url_for('about_us') }}">About Us</a>
+            </div>
+            <div class="dark-mode-toggle" onclick="toggleDarkMode()" id="dark-mode-switch">
+                <i id="dark-mode-icon" class="fa-solid fa-moon fa-xl"></i>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="slider">
+            <div class="slides">
+                <img class="slide" src="/static/slider2.png" alt="Slider Image 1">
+                <img class="slide" src="/static/slider1.png" alt="Slider Image 2">
+                <!-- <img class="slide" src="" alt="Slider Image 3"> -->
+            </div>
+        </div>
+        <div class="content">
+            <h2>About Us</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut feugiat nisi. Phasellus feugiat sem a nulla venenatis, in fermentum erat pulvinar. Sed at tempor nulla. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+            <p>Nulla facilisi. Donec condimentum orci a lorem pellentesque, nec tincidunt eros vestibulum. Fusce tincidunt vehicula arcu, in facilisis libero dignissim et. Vivamus feugiat, libero sed volutpat consequat, leo nisl sodales lectus, ut dignissim elit ipsum ut mi.</p>
+            <p>Proin ultricies felis nec turpis rhoncus, sed lobortis leo lobortis. Cras ullamcorper, magna id fermentum tristique, nulla velit pellentesque libero, auctor ultrices lacus massa vel libero. Aenean sit amet sapien eget tortor vehicula lacinia.</p>
+        </div>
+    </div>
+
+    <footer id="myFooter">
+        <p>&copy; 2024 Your Website. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function toggleDarkMode() {
+            const body = document.body;
+            const darkModeIcon = document.getElementById('dark-mode-icon');
+
+            body.classList.toggle('dark-mode');
+            if (body.classList.contains('dark-mode')) {
+                darkModeIcon.classList.remove('fa-moon');
+                darkModeIcon.classList.add('fa-sun');
+            } else {
+                darkModeIcon.classList.remove('fa-sun');
+                darkModeIcon.classList.add('fa-moon');
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            var slidesContainer = document.querySelector(".slides");
+            var slides = document.querySelectorAll(".slide");
+            var currentIndex = 0;
+            function nextSlide() {
+                currentIndex++;
+                if (currentIndex === slides.length) {
+                    currentIndex = 0;
+                }
+                var moveDistance = -currentIndex * 50;
+                slidesContainer.style.transform = "translateX(" + moveDistance + "%)";
+            }
+            setInterval(nextSlide, 3000);
+        });
+
+        window.addEventListener('load', function() {
+            var footer = document.getElementById('myFooter');
+            var footerHeight = footer.offsetHeight;
+            document.querySelector('.container').style.paddingBottom = footerHeight + 'px';
+        });
+
+    </script>
+
+    </body>
+
+    </html>

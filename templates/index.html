@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panda It</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="https://kit.fontawesome.com/cd7cde004b.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <nav>
+        <div class="navbar-container">
+            <div><img class="logo" src="/static/pandait-logo.jpeg" alt="Logo"></div>
+
+            <div class="nav-links">
+                <a href="#first-section">Home</a>
+                <a href="{{ url_for('about_us') }}">About Us</a>
+            </div>
+            <div class="dark-mode-toggle" onclick="toggleDarkMode()" id="dark-mode-switch">
+                <i id="dark-mode-icon" class="fa-solid fa-moon fa-xl"></i>
+            </div>
+        </div>
+    </nav>
+
+    <section class="first-section" id="first-section">
+        <div class="container">
+            <h1 style="font-size: 50px;">Welcome to our CSV Data Editor!
+                <BR>PandaIT</h1>
+            <h3>Our website provides a user-friendly platform for effortlessly managing and refining your CSV files.
+                <br><br>Simply upload your CSV, apply custom filters tailored to your needs, and download the refined data in a snap.
+                <!-- <br><br>Whether you're sorting, filtering, or extracting specific information, our intuitive interface streamlines the
+    process, empowering you to manipulate your data with ease. Enhance your productivity and efficiency with our CSV Data Editor today!-->
+            </h3><a href="#conatiner-section2"><button class="get-started">Get Started</button></a>
+        </div>
+        <div class="container-img">
+            <img src="/static/pandait1.jpeg" alt="Image">
+        </div>
+    </section>
+
+
+    <section>
+        <div class="container" id="conatiner-section2">
+            <h1 style="font-size: 40px;">Our Services</h1>
+            <form action="/index2" method="post" enctype="multipart/form-data">
+                <div class="buttons-row">
+                    <button type="submit">Filter Data</button>
+                </div>
+            </form>
+            <form action="/index1" method="post" enctype="multipart/form-data">
+                <div class="buttons-row">
+                    <button type="submit">Clean Data</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <div class="alternate">
+                <img class="alternate-img" src="/static/download.png" alt="Image">
+                <div class="text">
+                    <h3>FILTER DATA</h3>
+                    <p>=> Filter your data effortlessly
+                        <br>=> Create subsets of your dataset
+                        <br>=> Remove unnecessary columns with ease
+                        <br>=> Select data based on specific column values
+                        <br>=> Select data within a defined range
+                        <br>=> Perform a dataset check
+                        <br>=> Download the data</p>
+                </div>
+            </div>
+            <div class="alternate">
+                <div class="text">
+                    <h3>CLEAN DATA</h3>
+                    <p>=> Check all columns
+                        <br>=> Determine the total number of rows
+                        <br>=> Calculate the total number of unique values in a column
+                        <br>=> Identify if a column contains empty values
+                        <br>=> Calculate the sum, average, mean, median and mode
+                        <br>=> Remove rows with null values
+                        <br>=> Fill null values in the dataset
+                        <br>=> Perform a dataset check
+                        <br>=> Download the dataset</p>
+                </div>
+                <img class="alternate-img" src="/static/download.png" alt="Image">
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 our Website. All rights reserved.</p>
+    </footer>
+
+    <script src="/static/script.js"></script>
+</body>
+
+</html>

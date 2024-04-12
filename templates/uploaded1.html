@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Cleaning Page</title>
+    <style>
+        body {
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            margin: 0;
+            padding: 0px;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+        
+        button:hover {
+            background-color: #45a049;
+        }
+        
+        input[type="text"],
+        input[type="number"] {
+            width: calc(100% - 40px);
+            padding: 10px;
+            margin: 5px 0;
+            box-sizing: border-box;
+        }
+        
+        input[type="text"][multiple],
+        input[type="number"][multiple] {
+            height: 40px;
+        }
+        
+        .button-container {
+            display: flex;
+            justify-content: center;
+        }
+        
+        nav {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            font-weight: 700;
+        }
+        
+        .navbar-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+        
+        .nav-links a {
+            margin-right: 20px;
+            text-decoration: none;
+            color: white;
+        }
+        
+        .logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+        
+        footer {
+            background-color: #333;
+            padding: 10px;
+            text-align: center;
+            color: white;
+        }
+        
+        .back-button {
+            margin: 1%;
+        }
+        
+        .download-button {
+            position: absolute;
+            right: 0;
+        }
+        
+        .dark-mode-toggle {
+            cursor: pointer;
+        }
+        
+        .dark-mode-toggle i {
+            color: white;
+        }
+        
+        .dark-mode-toggle i:hover {
+            color: yellow;
+        }
+        
+        .dark-mode .outer-container {
+            background-color: #222;
+            color: white;
+        }
+        
+        .container-table {
+            max-width: 100%;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .table-container {
+            width: 100%;
+            max-height: 400px;
+            overflow-x: auto;
+            overflow-y: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 2px solid #333;
+        }
+        
+        th,
+        td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        
+        th {
+            background-color: #333;
+            color: #fff;
+            font-weight: bold;
+            position: sticky;
+            top: 0;
+            z-index: 1;
+        }
+        
+        tbody th:first-child,
+        tbody td:first-child {
+            font-weight: bold;
+        }
+        
+        tbody tr:last-child td {
+            border-bottom: 2px solid #333;
+        }
+    </style>
+    <script src="https://kit.fontawesome.com/cd7cde004b.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+    <div class="outer-container">
+
+        <nav>
+            <div class="navbar-container">
+                <div><img class="logo" src="/static/pandait-logo.jpeg" alt="Logo"></div>
+
+                <div class="nav-links">
+                    <a href="{{ url_for('index') }}">Home</a>
+                    <a href="{{ url_for('about_us') }}">About Us</a>
+                </div>
+                <div class="dark-mode-toggle" onclick="toggleDarkMode()" id="dark-mode-switch">
+                    <i id="dark-mode-icon" class="fa-solid fa-moon fa-xl"></i>
+                </div>
+            </div>
+        </nav>
+
+        <form action="/back" method="post" enctype="multipart/form-data" class="back-button">
+            <button type="submit">back</button>
+        </form>
+        <form action="/download1" method="post" enctype="multipart/form-data" class="download-button">
+            <div class="button-container"><button type="submit">download data</button>
+            </div>
+        </form>
+
+        <div class="container">
+            <form action="/all_row1" method="post" enctype="multipart/form-data">
+                <div class="button-container"><button type="submit">show data</button>
+                </div>
+            </form>
+
+            <br>Check the data of top N number of rows.<br>Input is an Integer<br>
+            <form action="/top_row" method="post" enctype="multipart/form-data">
+                <input type="text" name="no_of_row">
+                <div class="button-container"><button type="submit">show top n rows</button>
+                </div>
+            </form>
+
+            <br>Check the data of bottom N number of rows.<br>Input is an Integer<br>
+            <form action="/bottom_row" method="post" enctype="multipart/form-data">
+                <input type="text" name="no_of_row">
+                <div class="button-container"><button type="submit">show bottom n rows</button>
+                </div>
+            </form>
+
+            <br>Add Index with heading "Sno." in your dataset<br><br>
+            <form action="/add_index" method="post" enctype="multipart/form-data">
+                <div class="button-container">
+                    <button type="submit">Add Index</button>
+                </div>
+            </form>
+            {{ans_index}}
+            <br>
+
+            <br>Check the total number of rows.<br>
+            <form action="/total_rows" method="post" enctype="multipart/form-data">
+                <div class="button-container">
+                    <button type="submit">No. of rows</button>
+                </div>
+            </form>
+            {{t_r}}
+            <br>
+            <br>Get the Sum of all values of a Column.<br>Input is a Column Name<br>
+            <form action="/Sum" method="post" enctype="multipart/form-data">
+                <input type="text" name="column_name_sum">
+                <div class="button-container"><button type="submit">Sum</button></div>
+            </form>
+            {{Sum_ans}}
+            <br>
+            <br>Get the Average value of all values of a Column.<br>Input is a Column Name with Integer values<br>
+            <form action="/avg" method="post" enctype="multipart/form-data">
+                <input type="text" name="column_name_avg">
+                <div class="button-container"><button type="submit">Average</button></div>
+            </form>
+            {{avg_ans}}
+            <br>
+            <br>Get the mean value of all values of a Column.<br>Input is a Column Name with Integer values<br>
+            <form action="/mean" method="post" enctype="multipart/form-data">
+                <input type="text" name="column_name_mean">
+                <div class="button-container"><button type="submit">Mean</button></div>
+            </form>
+            {{Mean_ans}}
+            <br>
+            <br>Get the median value of all values of a Column.<br>Input is a Column Name with Integer values<br>
+            <form action="/median" method="post" enctype="multipart/form-data">
+                <input type="text" name="column_name_median">
+                <div class="button-container"><button type="submit">Median</button></div>
+            </form>
+            {{Median_ans}}
+            <br>
+            <br>Get the mode value of all values of a Column.<br>Input is a Column Name with Integer values<br>
+            <form action="/mode" method="post" enctype="multipart/form-data">
+                <input type="text" name="column_name_mode">
+                <div class="button-container"><button type="submit">Mode</button></div>
+            </form>
+            {{Mode_ans}}
+            <br>
+
+            <br>Check if given column has a null or empty cell.<br>Input is a Column Name<br>
+            <form action="/check_emp" method="post" enctype="multipart/form-data">
+                <input type="text" name="column_name_check_emp">
+                <div class="button-container"><button type="submit">Check null values</button></div>
+            </form>
+            {{ans_check_emp}}
+            <br>
+
+            <br>remove rows which has null value for a given column <br>Input is a Column Name<br>
+            <form action="/remove_na" method="post" enctype="multipart/form-data">
+                <input type="text" name="column_name_remove_na">
+                <div class="button-container"><button type="submit">Remove null values</button></div>
+            </form>
+            {{ans_remove_na}}
+            <br>
+            <Br> Fill x value in place of null value in a given Column.<br>
+            <form action="/fill_na" method="post" enctype="multipart/form-data">
+                Column name with null values
+                <input type="text" name="col_name_fill"><br> Column values which you want to fill in place of null values
+                <input type="text" name="col_value_fill"><br>
+                <div class="button-container"><button type="submit">fill Value</button>
+                </div>
+            </form>
+            {{ans_fill_na}}
+            <br>
+
+            <br>Check the Number of unique values in a column.<br>Input is a Column Name<br>
+            <form action="/Unique_r" method="post" enctype="multipart/form-data">
+                <input type="text" name="column_name_uni_r">
+                <div class="button-container"> <button type="submit">No. of unique rows</button></div>
+            </form>
+            {{Uni_rows}}
+            <br>
+            <br>Check all the unique values in a column.<br>Input is a Column Name<br>
+            <form action="/Unique_r_val" method="post" enctype="multipart/form-data">
+                <input type="text" name="column_name_uni_r_val">
+                <div class="button-container"> <button type="submit">show unique values of the given column</button></div>
+            </form>
+
+            {{Uni_rows_error}} {% for r in row %}
+            <label>{{r}}</label>
+            <br> {% endfor %}
+
+            <form action="/all_col1" method="post" enctype="multipart/form-data">
+                <div class="button-container"><button type="submit">show all columns</button></div>
+                <br> {% for c in col %}
+                <label>{{c}}</label>
+                <br> {% endfor %}
+            </form>
+
+            {{error}} {{ans}}
+            <br>
+        </div>
+        <!-- <div class="middle ">
+            <table class="table">
+                <tr class="table__header">
+                    {% for header in headings %}
+                    <th class="table__cell"><b>{{header}}</b></th>
+                    {% endfor %}
+                </tr>
+                {% for row in data %}
+                <tr class="table__row">
+                    {% for cell in row %}
+                    <td class="table__cell">{{cell}}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </table>
+        </div> -->
+
+        <div class="container-table">
+            <h1>Table</h1>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            {% for heading in headings %}
+                            <th>{{ heading }}</th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in data %}
+                        <tr>
+                            {% for cell in row %}
+                            <td>{{cell}}</td>
+                            {% endfor %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; 2024 our Website. All rights reserved.</p>
+        </footer>
+
+        <script>
+            function toggleDarkMode() {
+                const body = document.body;
+                const darkModeIcon = document.getElementById('dark-mode-icon');
+
+                body.classList.toggle('dark-mode');
+                if (body.classList.contains('dark-mode')) {
+                    darkModeIcon.classList.remove('fa-moon');
+                    darkModeIcon.classList.add('fa-sun');
+                } else {
+                    darkModeIcon.classList.remove('fa-sun');
+                    darkModeIcon.classList.add('fa-moon');
+                }
+            }
+        </script>
+
+    </div>
+
+</body>
+
+</html>
